@@ -3,10 +3,15 @@
 <template>
   <SidebarProvider>
     <DashboardSidebar />
-    <main>
-      <SidebarTrigger />
-      <slot />
-    </main>
+    <div>
+      <div class="p-3 text-xl">
+        <SidebarTrigger />
+      </div>
+
+      <main class="p-6">
+        <slot />
+      </main>
+    </div>
   </SidebarProvider>
 </template>
 
