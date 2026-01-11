@@ -10,7 +10,7 @@ export const columns: ColumnDef<Deck>[] = [
       h(
         RouterLink,
         {
-          to: `/decks/${row.original.id}`,
+          to: `/decks/${row.original.slug}`,
           class: 'text-left font-medium hover:bg-muted block w-full',
         },
         () => row.getValue('title'),
@@ -34,6 +34,6 @@ export const columns: ColumnDef<Deck>[] = [
     accessorKey: 'flashcards',
     header: () => h('div', { class: 'text-left' }, 'Flashcards'),
     cell: ({ row }) =>
-      h('div', { class: 'text-right font-medium' }, row.original.flashcards.length.toString()),
+      h('div', { class: 'text-left font-medium' }, row.original.flashcards.length.toString()),
   },
 ]

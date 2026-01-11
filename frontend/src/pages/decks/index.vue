@@ -6,6 +6,7 @@ const decks = ref<Deck[]>([
   {
     id: 1,
     title: 'My First Deck',
+    slug: 'my-first-deck',
     tags: ['math', 'physics'],
     last_learned_at: '2027-01-11T16:26:48Z',
     flashcards: [
@@ -24,6 +25,7 @@ const decks = ref<Deck[]>([
   {
     id: 2,
     title: 'My Second Deck',
+    slug: 'my-second-deck',
     tags: ['literature', 'history'],
     last_learned_at: '2025-01-11T16:26:48Z',
     flashcards: [
@@ -42,6 +44,7 @@ const decks = ref<Deck[]>([
   {
     id: 3,
     title: 'My Third Deck',
+    slug: 'my-third-deck',
     tags: ['computer science', 'engineering'],
     last_learned_at: '2023-01-11T16:26:48Z',
     flashcards: [
@@ -62,7 +65,7 @@ const decks = ref<Deck[]>([
 
 <template>
   <div class="flex flex-1 flex-col">
-    <h1 class="text-4xl">My decks</h1>
+    <h1 class="text-4xl">Decks</h1>
     <DataTable class="mt-12" :columns="columns" :data="decks" />
   </div>
 </template>
