@@ -11,12 +11,21 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    Breadcrumb: typeof import('./src/components/ui/breadcrumb/Breadcrumb.vue')['default']
+    BreadcrumbEllipsis: typeof import('./src/components/ui/breadcrumb/BreadcrumbEllipsis.vue')['default']
+    BreadcrumbItem: typeof import('./src/components/ui/breadcrumb/BreadcrumbItem.vue')['default']
+    BreadcrumbLink: typeof import('./src/components/ui/breadcrumb/BreadcrumbLink.vue')['default']
+    BreadcrumbList: typeof import('./src/components/ui/breadcrumb/BreadcrumbList.vue')['default']
+    BreadcrumbPage: typeof import('./src/components/ui/breadcrumb/BreadcrumbPage.vue')['default']
+    BreadcrumbSeparator: typeof import('./src/components/ui/breadcrumb/BreadcrumbSeparator.vue')['default']
     Button: typeof import('./src/components/ui/button/Button.vue')['default']
+    DashboardBreadcrumb: typeof import('./src/components/DashboardBreadcrumb.vue')['default']
     DashboardLayout: typeof import('./src/components/layouts/DashboardLayout.vue')['default']
     DashboardSidebar: typeof import('./src/components/DashboardSidebar.vue')['default']
     ILucideApple: typeof import('~icons/lucide/apple')['default']
     ILucideCirclePlus: typeof import('~icons/lucide/circle-plus')['default']
     ILucideHouse: typeof import('~icons/lucide/house')['default']
+    ILucideSlash: typeof import('~icons/lucide/slash')['default']
     ILucideSquarePlus: typeof import('~icons/lucide/square-plus')['default']
     Input: typeof import('./src/components/ui/input/Input.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
