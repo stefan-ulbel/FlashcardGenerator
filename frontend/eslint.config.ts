@@ -18,6 +18,12 @@ export default defineConfigWithVueTs(
 
   ...pluginVue.configs['flat/essential'],
   vueTsConfigs.recommended,
-
   skipFormatting,
+
+  {
+    rules: {
+      // NOTE: Conflicts with file-based routing naming conventions.
+      'vue/multi-word-component-names': 'off',
+    },
+  },
 )
