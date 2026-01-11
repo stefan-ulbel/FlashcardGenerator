@@ -1,7 +1,4 @@
-<script setup lang="ts">
-import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
-import DashboardSidebar from '@/components/DashboardSidebar.vue'
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <SidebarProvider>
