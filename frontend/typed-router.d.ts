@@ -37,6 +37,20 @@ declare module 'vue-router/auto-routes' {
       { atchAll: ParamValue<false> },
       | never
     >,
+    '/decks/': RouteRecordInfo<
+      '/decks/',
+      '/decks',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/decks/create/': RouteRecordInfo<
+      '/decks/create/',
+      '/decks/create',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
   }
 
   /**
@@ -59,6 +73,18 @@ declare module 'vue-router/auto-routes' {
     'src/pages/[..catchAll].vue': {
       routes:
         | '/[..catchAll]'
+      views:
+        | never
+    }
+    'src/pages/decks/index.vue': {
+      routes:
+        | '/decks/'
+      views:
+        | never
+    }
+    'src/pages/decks/create/index.vue': {
+      routes:
+        | '/decks/create/'
       views:
         | never
     }

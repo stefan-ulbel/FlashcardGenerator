@@ -3,13 +3,13 @@
 <template>
   <SidebarProvider>
     <DashboardSidebar />
-    <div>
+    <div class="flex w-full flex-col">
       <div class="flex items-center space-x-4 p-3 text-xl">
         <SidebarTrigger />
         <DashboardBreadcrumb />
       </div>
 
-      <main class="p-6">
+      <main class="flex flex-1 flex-col gap-6 p-6">
         <slot />
       </main>
     </div>

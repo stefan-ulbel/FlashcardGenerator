@@ -23,7 +23,7 @@ const breadcrumbs = computed(() => {
     <BreadcrumbList>
       <BreadcrumbItem>
         <BreadcrumbLink>
-          <RouterLink to="/">Home</RouterLink>
+          <RouterLink to="/" exact-active-class="text-foreground underline">Home</RouterLink>
         </BreadcrumbLink>
       </BreadcrumbItem>
 
@@ -31,7 +31,9 @@ const breadcrumbs = computed(() => {
         <BreadcrumbSeparator />
         <BreadcrumbItem>
           <BreadcrumbLink>
-            <RouterLink :to="breadcrumb.url">{{ breadcrumb.label }}</RouterLink>
+            <RouterLink :to="breadcrumb.url" exact-active-class="text-foreground underline">{{
+              breadcrumb.label
+            }}</RouterLink>
           </BreadcrumbLink>
         </BreadcrumbItem>
       </template>
