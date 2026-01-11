@@ -8,6 +8,8 @@ import VueRouter from 'unplugin-vue-router/vite'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { VueRouterAutoImports } from 'unplugin-vue-router'
+import IconsResolver from 'unplugin-icons/resolver'
+import Icons from 'unplugin-icons/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -28,7 +30,8 @@ export default defineConfig({
       },
       dirs: ['src/stores/**', 'src/composables/**'],
     }),
-    Components({ dts: true }),
+    Components({ dts: true, resolvers: [IconsResolver({ enabledCollections: ['lucide'] })] }),
+    Icons({}),
     VueRouter({}),
     vue(),
     vueDevTools(),

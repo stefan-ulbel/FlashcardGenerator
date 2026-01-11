@@ -14,6 +14,7 @@ declare module 'vue' {
     Button: typeof import('./src/components/ui/button/Button.vue')['default']
     DashboardLayout: typeof import('./src/components/layouts/DashboardLayout.vue')['default']
     DashboardSidebar: typeof import('./src/components/DashboardSidebar.vue')['default']
+    ILucideApple: typeof import('~icons/lucide/apple')['default']
     Input: typeof import('./src/components/ui/input/Input.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

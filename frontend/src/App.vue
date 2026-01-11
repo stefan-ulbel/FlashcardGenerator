@@ -1,15 +1,9 @@
-<script setup lang="ts">
-const count = ref(0)
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <!--  <DashboardLayout>
+  <DashboardLayout>
     <RouterView />
-  </DashboardLayout>-->
-
-  {{ count }}
-
-  <button @click="count++">Add</button>
+  </DashboardLayout>
 </template>
 
 <style scoped></style>
