@@ -11,6 +11,10 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AppFileUpload: typeof import('./src/components/AppFileUpload.vue')['default']
+    AppFileUploadDropZone: typeof import('./src/components/AppFileUploadDropZone.vue')['default']
+    AppFileUploadPreviewList: typeof import('./src/components/AppFileUploadPreviewList.vue')['default']
+    AppFileUploadPreviewListItem: typeof import('./src/components/AppFileUploadPreviewListItem.vue')['default']
     Breadcrumb: typeof import('./src/components/ui/breadcrumb/Breadcrumb.vue')['default']
     BreadcrumbEllipsis: typeof import('./src/components/ui/breadcrumb/BreadcrumbEllipsis.vue')['default']
     BreadcrumbItem: typeof import('./src/components/ui/breadcrumb/BreadcrumbItem.vue')['default']
@@ -32,10 +36,13 @@ declare module 'vue' {
     DataTable: typeof import('./src/components/ui/DataTable.vue')['default']
     ILucideApple: typeof import('~icons/lucide/apple')['default']
     ILucideCirclePlus: typeof import('~icons/lucide/circle-plus')['default']
+    ILucideCross: typeof import('~icons/lucide/cross')['default']
+    ILucideFile: typeof import('~icons/lucide/file')['default']
     ILucideHouse: typeof import('~icons/lucide/house')['default']
     ILucideSlash: typeof import('~icons/lucide/slash')['default']
     ILucideSquarePlus: typeof import('~icons/lucide/square-plus')['default']
     ILucideUpload: typeof import('~icons/lucide/upload')['default']
+    ILucideX: typeof import('~icons/lucide/x')['default']
     Input: typeof import('./src/components/ui/input/Input.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
