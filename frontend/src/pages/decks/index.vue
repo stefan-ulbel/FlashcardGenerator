@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { columns } from '@/components/decks/decks-columns.ts'
+import { columns } from '@/lib/table-columns/decks-columns.ts'
 import type { Deck } from '@/types/deck.ts'
 
 const decks = ref<Deck[]>([
