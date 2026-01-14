@@ -73,6 +73,7 @@
     "useCounterStore": true,
     "useCssModule": true,
     "useCssVars": true,
+    "useDeckStore": true,
     "useId": true,
     "useModel": true,
     "useRoute": true,
