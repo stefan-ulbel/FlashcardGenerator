@@ -1,6 +1,9 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import IconLucideHouse from '~icons/lucide/house'
 import IconLucideLayers from '~icons/lucide/layers'
+import { useDeckStore } from '@/stores/deck.ts'
+
+const { decks } = storeToRefs(useDeckStore())
 
 const links = [
   {
@@ -8,6 +11,9 @@ const links = [
     path: '/',
     icon: IconLucideHouse,
   },
+]
+
+const menuLinks = [
   {
     title: 'Decks',
     path: '/decks',
@@ -22,15 +28,15 @@ const links = [
       <SidebarMenu>
         <SidebarMenuItem>
           <RouterLink
-            to="/decks/create"
             class="flex items-center justify-center space-x-2 rounded-lg"
             exact-active-class="bg-muted"
+            to="/decks/create"
           >
             <SidebarMenuButton size="lg">
               <div
                 class="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg"
               >
-                <i-lucide-circle-plus class="text-xl" />
+                <i-lucide-layers-plus class="text-xl" />
               </div>
               <div class="flex flex-col gap-0.5 leading-none">
                 <span class="font-semibold">Create Deck</span>
@@ -49,13 +55,39 @@ const links = [
               <SidebarMenuButton as-child>
                 <RouterLink
                   :to="link.path"
-                  exact-active-class="text-white bg-muted"
                   class="text-muted-foreground"
+                  exact-active-class="text-white bg-muted"
                 >
                   <component :is="link.icon" />
                   <span>{{ link.title }}</span>
                 </RouterLink>
               </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem v-for="link in menuLinks" :key="link.title">
+              <SidebarMenuButton as-child>
+                <RouterLink
+                  :to="link.path"
+                  class="text-muted-foreground"
+                  exact-active-class="text-white bg-muted"
+                >
+                  <component :is="link.icon" />
+                  <span>{{ link.title }}</span>
+                </RouterLink>
+              </SidebarMenuButton>
+              <SidebarMenuSub>
+                <SidebarMenuItem v-for="deck in decks" :key="deck.title">
+                  <SidebarMenuButton as-child>
+                    <RouterLink
+                      :to="`/decks/${deck.slug}`"
+                      class="text-muted-foreground"
+                      exact-active-class="text-white bg-muted"
+                    >
+                      <i-lucide-hexagon></i-lucide-hexagon>
+                      <span>{{ deck.title }}</span>
+                    </RouterLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenuSub>
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarGroupContent>
