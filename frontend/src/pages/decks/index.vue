@@ -13,7 +13,7 @@ await getDecks()
 
 <template>
   <div class="flex flex-1 flex-col">
-    <DataTable v-if="decks" :columns="columns" :data="decks" class="mt-12" />
+    <DataTable v-if="decks" :columns="columns" :data="decks" />
   </div>
 </template>
 

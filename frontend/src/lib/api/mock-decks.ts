@@ -61,13 +61,13 @@ const mockDecks = [
   },
 ]
 
-export const decksQuery = async (): Promise<Deck[]> => {
+export const fetchDecks = async (): Promise<Deck[]> => {
   await delay(1_000)
 
   return mockDecks
 }
 
-export const deckQuery = async (slug: string): Promise<Deck | null> => {
+export const fetchDeck = async (slug: string): Promise<Deck | null> => {
   await delay(1_000)
 
   return mockDecks.find((deck) => deck.slug === slug) ?? null
