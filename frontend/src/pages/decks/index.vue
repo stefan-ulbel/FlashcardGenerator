@@ -1,14 +1,19 @@
 <script lang="ts" setup>
 import { columns } from '@/lib/table-columns/decks-columns.ts'
-import { useDeckStore } from '@/stores/deck.ts'
 
-const { decks } = storeToRefs(useDeckStore())
+usePageStore().title = 'Decks'
+
+const decksStore = useDecksStore()
+
+const { decks } = storeToRefs(decksStore)
+const { getDecks } = useDecksStore()
+
+await getDecks()
 </script>
 
 <template>
   <div class="flex flex-1 flex-col">
-    <h1 class="text-4xl">Decks</h1>
-    <DataTable :columns="columns" :data="decks" class="mt-12" />
+    <DataTable v-if="decks" :columns="columns" :data="decks" class="mt-12" />
   </div>
 </template>
 

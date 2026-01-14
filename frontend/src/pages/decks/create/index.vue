@@ -1,8 +1,8 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+usePageStore().title = 'Create Deck'
+</script>
 
 <template>
-  <h1 class="text-4xl">Create Deck</h1>
-
   <AppFileUpload :multiple="true" />
 </template>
 

@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script lang="ts" setup>
+const { title } = storeToRefs(usePageStore())
+</script>
 
 <template>
   <SidebarProvider>
@@ -10,6 +12,7 @@
       </div>
 
       <main class="flex flex-1 flex-col gap-6 p-6">
+        <h1 class="text-4xl">{{ title }}</h1>
         <slot />
       </main>
     </div>

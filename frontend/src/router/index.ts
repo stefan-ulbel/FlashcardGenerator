@@ -6,7 +6,6 @@ const router = createRouter({
   routes,
 })
 
-// Updates routes at runtime without reloading the page.
 if (import.meta.hot) {
   handleHotUpdate(router)
 }

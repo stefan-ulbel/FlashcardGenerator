@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import IconLucideHouse from '~icons/lucide/house'
 import IconLucideLayers from '~icons/lucide/layers'
-import { useDeckStore } from '@/stores/deck.ts'
+import { useDecksStore } from '@/stores/loaders/decks.ts'
 
-const { decks } = storeToRefs(useDeckStore())
+const { decks } = storeToRefs(useDecksStore())
 
 const links = [
   {

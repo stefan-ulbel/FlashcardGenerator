@@ -1,7 +1,9 @@
-<script setup lang="ts"></script>
+<script lang="ts" setup>
+usePageStore().title = 'Home'
+</script>
 
 <template>
-  <h1 class="text-4xl">Home</h1>
+  <div></div>
 </template>
 
 <style scoped></style>

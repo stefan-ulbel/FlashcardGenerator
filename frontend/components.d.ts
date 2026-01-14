@@ -60,6 +60,7 @@ declare module 'vue' {
     ILucideLayer: typeof import('~icons/lucide/layer')['default']
     ILucideLayers2: typeof import('~icons/lucide/layers2')['default']
     ILucideLayersPlus: typeof import('~icons/lucide/layers-plus')['default']
+    ILucideLoaderCircle: typeof import('~icons/lucide/loader-circle')['default']
     ILucideSlash: typeof import('~icons/lucide/slash')['default']
     ILucideSquarePlus: typeof import('~icons/lucide/square-plus')['default']
     ILucideUpload: typeof import('~icons/lucide/upload')['default']

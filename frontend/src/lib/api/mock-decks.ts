@@ -1,4 +1,5 @@
 import type { Deck } from '@/types/deck.ts'
+import { delay } from '@/lib/delay.ts'
 
 const mockDecks = [
   {
@@ -60,8 +61,14 @@ const mockDecks = [
   },
 ]
 
-export const useDeckStore = defineStore('deck', () => {
-  const decks = ref<Deck[]>(mockDecks)
+export const decksQuery = async (): Promise<Deck[]> => {
+  await delay(1_000)
 
-  return { decks }
-})
+  return mockDecks
+}
+
+export const deckQuery = async (slug: string): Promise<Deck | null> => {
+  await delay(1_000)
+
+  return mockDecks.find((deck) => deck.slug === slug) ?? null
+}

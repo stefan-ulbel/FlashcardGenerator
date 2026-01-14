@@ -1,8 +1,10 @@
-<script setup lang="ts"></script>
+<script lang="ts" setup></script>
 
 <template>
   <DashboardLayout>
-    <RouterView />
+    <Suspense>
+      <RouterView />
+    </Suspense>
   </DashboardLayout>
 </template>
 
