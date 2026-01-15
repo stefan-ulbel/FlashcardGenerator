@@ -1,7 +1,7 @@
 import type { Deck } from '@/types/deck.ts'
 import { delay } from '@/lib/delay.ts'
 
-const mockDecks: Deck[] = [
+let mockDecks: Deck[] = [
   {
     id: 1,
     title: 'My First Deck',
@@ -77,4 +77,8 @@ export const fetchDeck = async (slug: string): Promise<Deck | null> => {
   await delay(1_000)
 
   return mockDecks.find((deck) => deck.slug === slug) ?? null
+}
+
+export const removeDeck = async (slug: string): Promise<void> => {
+  mockDecks = mockDecks.filter((deck) => deck.slug !== slug)
 }
