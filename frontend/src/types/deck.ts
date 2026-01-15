@@ -10,5 +10,6 @@ export interface Deck {
 export interface Flashcard {
   id: number
   question: string
-  answer: string
+  answers: string[]
+  correctAnswer: 1 | 2 | 3 | 4
 }
