@@ -15,6 +15,8 @@ if (!fs.existsSync(`./content/${file}`)) {
 }
 
 async function main() {
+  // Two types of prompts: Quiz prompt for quiz cards, singleQuestion-Prompt for question-answer cards.
+  // Have to adapt each useage and the printing / logging of the result.
   const quizPrompt = `Use this document from a lecture and extract relevant exam questions similar to flashcards ar anki cards. Each card should have one question and four possible answers, with one of them being the correct one. The questions should help in understanding the topic. The answers must not be obvious. Do not include content that is not in the pdf in the questions and not in the answers. Answer with nothing else except the cards.`;
   const quizSchema = {
     type: "array",
@@ -98,11 +100,11 @@ async function main() {
 
   const response = await ai.models.generateContent({
     model: "gemini-3-flash-preview",
-    contents: contents, //"Explain how AI works in a few words",
+    contents: contents,
     config,
   });
 
-  // Check if the response contains the expected candidates and content
+  // Check response:
   let cards = [];
   if (response && response.candidates && response.candidates.length > 0) {
     // Try parsing the content as JSON
@@ -128,7 +130,7 @@ async function main() {
 
   console.log(JSON.stringify(response, null, 2));
 
-  // Print each card in an easy readable way
+  // Print cards:
   const printQuizCards = () => {
     cards.forEach((card, idx) => {
       console.log(`\nFlashcard #${idx + 1}:`);
