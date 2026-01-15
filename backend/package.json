@@ -1,0 +1,27 @@
+{
+  "name": "flashcard-generator-backend",
+  "version": "1.0.0",
+  "description": "Backend for LLM-Powered Adaptive Flashcard Generator",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google/genai": "^1.36.0",
+    "busboy": "^1.6.0",
+    "dotenv": "^17.2.3"
+  },
+  "devDependencies": {
+    "@types/busboy": "^1.5.4",
+    "@types/node": "^20.10.6",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  }
+}
