@@ -11,6 +11,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    '<FlashcardExpandedAnswer': typeof import('./src/components/<FlashcardExpandedAnswer.vue')['default']
     AppFileUpload: typeof import('./src/components/AppFileUpload.vue')['default']
     AppFileUploadDropZone: typeof import('./src/components/AppFileUploadDropZone.vue')['default']
     AppFileUploadPreviewList: typeof import('./src/components/AppFileUploadPreviewList.vue')['default']
@@ -52,6 +53,8 @@ declare module 'vue' {
     DropdownMenuSubContent: typeof import('./src/components/ui/dropdown-menu/DropdownMenuSubContent.vue')['default']
     DropdownMenuSubTrigger: typeof import('./src/components/ui/dropdown-menu/DropdownMenuSubTrigger.vue')['default']
     DropdownMenuTrigger: typeof import('./src/components/ui/dropdown-menu/DropdownMenuTrigger.vue')['default']
+    FlashcardExpanded: typeof import('./src/components/FlashcardExpanded.vue')['default']
+    FlashcardExpandedAnswer: typeof import('./src/components/FlashcardExpandedAnswer.vue')['default']
     ILucideApple: typeof import('~icons/lucide/apple')['default']
     ILucideCirclePlus: typeof import('~icons/lucide/circle-plus')['default']
     ILucideCross: typeof import('~icons/lucide/cross')['default']
