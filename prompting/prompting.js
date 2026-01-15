@@ -8,11 +8,15 @@ if (!process.env.GOOGLE_API_KEY)
 const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
 
 const file = "Transformer.pdf"; //"KG02.pdf"
+if (!fs.existsSync(`./content/${file}`)) {
+  console.error(
+    `File ./content/${file} does not exist - place file in /content to create flashcards`
+  );
+}
 
 async function main() {
-  const prompt = `Use this document from a lecture and extract relevant exam questions similar to flashcards ar anki cards. Each card should have one question and four possible answers, with one of them being the correct one. The questions should help in understanding the topic. The answers must not be obvious. Do not include content that is not in the pdf in the questions and not in the answers. Answer with nothing else except the cards.`;
-
-  const schema = {
+  const quizPrompt = `Use this document from a lecture and extract relevant exam questions similar to flashcards ar anki cards. Each card should have one question and four possible answers, with one of them being the correct one. The questions should help in understanding the topic. The answers must not be obvious. Do not include content that is not in the pdf in the questions and not in the answers. Answer with nothing else except the cards.`;
+  const quizSchema = {
     type: "array",
     items: {
       type: "object",
@@ -55,8 +59,9 @@ async function main() {
       additionalProperties: false,
     },
   };
+
   const contents = [
-    { text: prompt },
+    { text: quizPrompt },
     {
       inlineData: {
         mimeType: "application/pdf",
@@ -66,14 +71,15 @@ async function main() {
       },
     },
   ];
+  const config = {
+    responseMimeType: "application/json",
+    responseJsonSchema: quizSchema,
+  };
 
   const response = await ai.models.generateContent({
     model: "gemini-3-flash-preview",
     contents: contents, //"Explain how AI works in a few words",
-    config: {
-      responseMimeType: "application/json",
-      responseJsonSchema: schema,
-    },
+    config,
   });
 
   // Check if the response contains the expected candidates and content
