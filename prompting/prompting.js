@@ -9,7 +9,7 @@ const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
 // Helper function to determine MIME type
 function getMimeType(filename, mimetype) {
   if (mimetype) return mimetype;
-  
+
   const ext = filename.toLowerCase().split('.').pop();
   const mimeTypes = {
     'pdf': 'application/pdf',
@@ -112,7 +112,7 @@ export async function generateQuiz(files = [], topic = '', numQuestions = 5) {
     config,
   });
 
-  // Parse response exactly as in main method
+  // Check response:
   let cards = [];
   if (response && response.candidates && response.candidates.length > 0) {
     // Try parsing the content as JSON
