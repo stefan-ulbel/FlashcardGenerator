@@ -1,7 +1,7 @@
 import type { Deck } from '@/types/deck.ts'
 import { delay } from '@/lib/delay.ts'
 
-const mockDecks = [
+const mockDecks: Deck[] = [
   {
     id: 1,
     title: 'My First Deck',
@@ -12,12 +12,14 @@ const mockDecks = [
       {
         id: 1,
         question: 'What is 2 + 2?',
-        answer: '2 + 2 = 4',
+        answers: ['2 + 2 = 4'],
+        correctAnswer: 1,
       },
       {
         id: 2,
         question: 'What is 2 + 3?',
-        answer: '2 + 3 = 5',
+        answers: ['2 + 3 = 5'],
+        correctAnswer: 1,
       },
     ],
   },
@@ -31,12 +33,14 @@ const mockDecks = [
       {
         id: 1,
         question: 'What is 2 + 2?',
-        answer: '2 + 2 = 4',
+        answers: ['2 + 2 = 4'],
+        correctAnswer: 1,
       },
       {
         id: 2,
         question: 'What is 2 + 3?',
-        answer: '2 + 3 = 5',
+        answers: ['2 + 3 = 5'],
+        correctAnswer: 1,
       },
     ],
   },
@@ -50,12 +54,14 @@ const mockDecks = [
       {
         id: 1,
         question: 'What is 2 + 2?',
-        answer: '2 + 2 = 4',
+        answers: ['2 + 2 = 4'],
+        correctAnswer: 1,
       },
       {
         id: 2,
         question: 'What is 2 + 3?',
-        answer: '2 + 3 = 5',
+        answers: ['2 + 3 = 5'],
+        correctAnswer: 1,
       },
     ],
   },

@@ -1,3 +1,5 @@
+import type { Flashcard } from '@/types/flashcard.ts'
+
 export interface Deck {
   id: number
   slug: string
@@ -5,11 +7,4 @@ export interface Deck {
   tags: string[]
   last_learned_at: string
   flashcards: Flashcard[]
-}
-
-export interface Flashcard {
-  id: number
-  question: string
-  answers: string[]
-  correctAnswer: 1 | 2 | 3 | 4
 }
