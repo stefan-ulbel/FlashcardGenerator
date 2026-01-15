@@ -1,0 +1,17 @@
+{
+  "name": "prompting",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "Stefan Ulbel",
+  "type": "module",
+  "main": "prompting.js",
+  "scripts": {
+    "start": "node prompting.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@google/genai": "^1.36.0",
+    "dotenv": "^17.2.3"
+  }
+}
