@@ -7,6 +7,8 @@ if (!process.env.GOOGLE_API_KEY)
   console.error("No API key found - set GOOGLE_API_KEY in .env ");
 const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
 
+const file = "Transformer.pdf"; //"KG02.pdf"
+
 async function main() {
   const prompt = `Use this document from a lecture and extract relevant exam questions similar to flashcards ar anki cards. Each card should have one question and four possible answers, with one of them being the correct one. The questions should help in understanding the topic. The answers must not be obvious. Do not include content that is not in the pdf in the questions and not in the answers. Answer with nothing else except the cards.`;
 
@@ -58,7 +60,7 @@ async function main() {
     {
       inlineData: {
         mimeType: "application/pdf",
-        data: Buffer.from(fs.readFileSync("./content/KG02.pdf")).toString(
+        data: Buffer.from(fs.readFileSync(`./content/${file}`)).toString(
           "base64"
         ),
       },
