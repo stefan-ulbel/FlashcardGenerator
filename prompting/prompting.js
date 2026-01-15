@@ -60,8 +60,28 @@ async function main() {
     },
   };
 
+  const singleQuestionPrompt = `Use this document from a lecture and extract relevant exam questions similar to flashcards ar anki cards. Each card should have one question and one possible answer. The questions should help in understanding the topic. The answers must not be obvious. Do not include content that is not in the pdf in the questions and not in the answers. Answer with nothing else except the cards.`;
+  const singleQuestionSchema = {
+    type: "array",
+    items: {
+      type: "object",
+      properties: {
+        question: {
+          type: "string",
+          description: "The question for the flashcard",
+        },
+        answer: {
+          type: "string",
+          description: "The answer",
+        },
+      },
+      required: ["question", "answer"],
+      additionalProperties: false,
+    },
+  };
+
   const contents = [
-    { text: quizPrompt },
+    { text: singleQuestionPrompt }, // quizPrompt
     {
       inlineData: {
         mimeType: "application/pdf",
@@ -73,7 +93,7 @@ async function main() {
   ];
   const config = {
     responseMimeType: "application/json",
-    responseJsonSchema: quizSchema,
+    responseJsonSchema: singleQuestionSchema, //quizSchema
   };
 
   const response = await ai.models.generateContent({
@@ -109,19 +129,31 @@ async function main() {
   console.log(JSON.stringify(response, null, 2));
 
   // Print each card in an easy readable way
-  cards.forEach((card, idx) => {
-    console.log(`\nFlashcard #${idx + 1}:`);
-    console.log(`Q: ${card.question}`);
-    console.log(`  1) ${card.answer1}`);
-    console.log(`  2) ${card.answer2}`);
-    console.log(`  3) ${card.answer3}`);
-    console.log(`  4) ${card.answer4}`);
-    console.log(
-      `Correct Answer: ${card[`answer${card.correctAnswer}`] || "[unknown]"}`
-    );
-  });
+  const printQuizCards = () => {
+    cards.forEach((card, idx) => {
+      console.log(`\nFlashcard #${idx + 1}:`);
+      console.log(`Q: ${card.question}`);
+      console.log(`  1) ${card.answer1}`);
+      console.log(`  2) ${card.answer2}`);
+      console.log(`  3) ${card.answer3}`);
+      console.log(`  4) ${card.answer4}`);
+      console.log(
+        `Correct Answer: ${card[`answer${card.correctAnswer}`] || "[unknown]"}`
+      );
+    });
 
-  if (!cards.length) console.log("No flashcards found in the response.");
+    if (!cards.length) console.log("No flashcards found in the response.");
+  };
+  const printQuestionCards = () => {
+    cards.forEach((card, idx) => {
+      console.log(`\nFlashcard #${idx + 1}:`);
+      console.log(`Q: ${card.question}`);
+      console.log(`  1) ${card.answer}`);
+    });
+
+    if (!cards.length) console.log("No flashcards found in the response.");
+  };
+  printQuestionCards(); // printQuizCards();
 
   //console.log(response.candidates[0].content.text);
 }
