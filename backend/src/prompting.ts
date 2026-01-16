@@ -1,22 +1,20 @@
 import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
+import { DataFile } from "./types";
 dotenv.config();
 
-if (!process.env.GOOGLE_API_KEY)
-  console.error("No API key found - set GOOGLE_API_KEY in .env ");
 const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
-
 // Helper function to determine MIME type
-function getMimeType(filename, mimetype) {
+function getMimeType(filename: string, mimetype: string): string {
   if (mimetype) return mimetype;
 
-  const ext = filename.toLowerCase().split('.').pop();
-  const mimeTypes = {
-    'pdf': 'application/pdf',
-    'md': 'text/markdown',
-    'txt': 'text/plain',
+  const mimeTypes: Record<string, string> = {
+    pdf: "application/pdf",
+    md: "text/markdown",
+    txt: "text/plain",
   };
-  return mimeTypes[ext] || 'application/octet-stream';
+  const ext = filename.toLowerCase().split(".").pop();
+  return ext ? mimeTypes[ext] : "application/octet-stream";
 }
 
 // Schema for quiz (multiple choice)
@@ -85,9 +83,17 @@ const singleQuestionSchema = {
 };
 
 // Export function for generating quiz
-export async function generateQuiz(files = [], topic = '', numQuestions = 5) {
+export async function generateQuiz(
+  files: DataFile[] = [],
+  topic = "",
+  numQuestions = 5
+) {
+  if (!process.env.GOOGLE_API_KEY)
+    throw new Error("No API key found - set GOOGLE_API_KEY in .env ");
   //const quizPrompt = `Use this document from a lecture and extract ${numQuestions} relevant exam questions similar to flashcards or anki cards. Each card should have one question and four possible answers, with one of them being the correct one. The questions should help in understanding the topic${topic ? `: ${topic}` : ''}. The answers must not be obvious. Do not include content that is not in the document in the questions and not in the answers. Answer with nothing else except the cards.`;
-  const quizPrompt = `You are an expert educational content generator. Your task is to analyze the provided document and generate ${numQuestions} high-quality multiple-choice exam questions designed to test deep understanding and conceptual application of the material${topic ? `, focusing specifically on: ${topic}` : ''}.
+  const quizPrompt = `You are an expert educational content generator. Your task is to analyze the provided document and generate ${numQuestions} high-quality multiple-choice exam questions designed to test deep understanding and conceptual application of the material${
+    topic ? `, focusing specifically on: ${topic}` : ""
+  }.
 
 STRICT OUTPUT FORMAT:
 Return ONLY a raw JSON array of objects (no markdown blocks, no intro text). 
@@ -113,7 +119,7 @@ CRITICAL RULES FOR "DEEP APPLICATION" QUESTIONS:
 
 Ensure all information is strictly derived from the provided document. Do not use outside knowledge. The wrong answers (distractors) must be plausible and not obviously incorrect.`;
 
-  const contents = [{ text: quizPrompt }];
+  const contents: any = [{ text: quizPrompt }];
 
   // Add file contents to the request
   for (const file of files) {
@@ -121,7 +127,7 @@ Ensure all information is strictly derived from the provided document. Do not us
     contents.push({
       inlineData: {
         mimeType: mimeType,
-        data: file.content.toString('base64'),
+        data: file.content.toString("base64"),
       },
     });
   }
@@ -131,14 +137,14 @@ Ensure all information is strictly derived from the provided document. Do not us
     responseJsonSchema: quizSchema,
   };
 
-  const response = await ai.models.generateContent({
+  const response: any = await ai.models.generateContent({
     model: "gemini-3-flash-preview",
     contents: contents,
     config,
   });
 
   // Check response:
-  let cards = [];
+  let cards: any[] = [];
   if (response && response.candidates && response.candidates.length > 0) {
     // Try parsing the content as JSON
     let contentText =
@@ -172,9 +178,16 @@ Ensure all information is strictly derived from the provided document. Do not us
 }
 
 // Export function for generating single question flashcards using singleQuestionPrompt
-export async function generateSingleQuestion(files = [], topic = '') {
+export async function generateSingleQuestion(
+  files: DataFile[] = [],
+  topic = ""
+) {
+  if (!process.env.GOOGLE_API_KEY)
+    throw new Error("No API key found - set GOOGLE_API_KEY in .env ");
   //const singleQuestionPrompt = `Use this document from a lecture and extract relevant exam questions similar to flashcards or anki cards. Each card should have one question and one possible answer. The questions should help in understanding the topic${topic ? `: ${topic}` : ''}. The answers must not be obvious. Do not include content that is not in the document in the questions and not in the answers. Answer with nothing else except the cards.`;
-  const singleQuestionPrompt = `You are an expert educational content generator. Your task is to analyze the provided document and generate high-quality single-question flashcards (Question & Answer) designed to test deep understanding and conceptual application of the material${topic ? `, focusing specifically on: ${topic}` : ''}.
+  const singleQuestionPrompt = `You are an expert educational content generator. Your task is to analyze the provided document and generate high-quality single-question flashcards (Question & Answer) designed to test deep understanding and conceptual application of the material${
+    topic ? `, focusing specifically on: ${topic}` : ""
+  }.
 
 STRICT OUTPUT FORMAT:
 Return ONLY a raw JSON array of objects (no markdown blocks, no intro text). 
@@ -204,7 +217,7 @@ The answer must be concise but sufficiently detailed to validate the user's unde
 - For comparisons: State the key distinction clearly.
 - Ensure all information is strictly derived from the provided document.`;
 
-  const contents = [{ text: singleQuestionPrompt }];
+  const contents: any = [{ text: singleQuestionPrompt }];
 
   // Add file contents to the request
   for (const file of files) {
@@ -212,7 +225,7 @@ The answer must be concise but sufficiently detailed to validate the user's unde
     contents.push({
       inlineData: {
         mimeType: mimeType,
-        data: file.content.toString('base64'),
+        data: file.content.toString("base64"),
       },
     });
   }
@@ -222,14 +235,14 @@ The answer must be concise but sufficiently detailed to validate the user's unde
     responseJsonSchema: singleQuestionSchema,
   };
 
-  const response = await ai.models.generateContent({
+  const response: any = await ai.models.generateContent({
     model: "gemini-3-flash-preview",
     contents: contents,
     config,
   });
 
   // Parse response exactly as in main method
-  let cards = [];
+  let cards: any[] = [];
   if (response && response.candidates && response.candidates.length > 0) {
     // Try parsing the content as JSON
     let contentText =
@@ -260,4 +273,3 @@ The answer must be concise but sufficiently detailed to validate the user's unde
     answer: card.answer,
   }));
 }
-
