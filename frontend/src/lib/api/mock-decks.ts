@@ -67,6 +67,8 @@ let mockDecks: Deck[] = [
   },
 ]
 
+let nextId = 4
+
 export const fetchDecks = async (): Promise<Deck[]> => {
   await delay(1_000)
 
@@ -77,6 +79,31 @@ export const fetchDeck = async (slug: string): Promise<Deck | null> => {
   await delay(1_000)
 
   return mockDecks.find((deck) => deck.slug === slug) ?? null
+}
+
+export const addDeck = async (formData: FormData): Promise<Deck> => {
+  await delay(1_000)
+
+  console.log(formData)
+
+  const title = formData.get('title')
+  if (!title) {
+    throw new Error("'title' field is required")
+  }
+
+  const deck: Deck = {
+    id: nextId,
+    title: title.toString(),
+    slug: title.toString().toLowerCase().replace(/\s/g, '-'),
+    tags: [],
+    last_learned_at: new Date().toISOString(),
+    flashcards: [],
+  }
+
+  mockDecks.push(deck)
+  nextId = nextId + 1
+
+  return deck
 }
 
 export const removeDeck = async (slug: string): Promise<void> => {

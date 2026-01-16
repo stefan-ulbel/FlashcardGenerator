@@ -16,6 +16,10 @@ const props = withDefaults(
   },
 )
 
+const emit = defineEmits<{
+  'update:files': [value: File[]]
+}>()
+
 const files = ref<File[]>([])
 
 const onSelectFiles = (selectedFiles: File[]) => {
@@ -24,39 +28,24 @@ const onSelectFiles = (selectedFiles: File[]) => {
   } else {
     files.value = [selectedFiles[0] as File]
   }
+
+  emit('update:files', files.value)
 }
 
 const onDeleteFile = (fileToDelete: File) => {
   files.value = files.value.filter((file: File) => file !== fileToDelete)
-}
-
-const upload = async () => {
-  if (!files.value.length) {
-    return
-  }
-
-  const formData = new FormData()
-
-  for (const file of files.value) {
-    formData.append(file.name, file)
-  }
-
-  const response = await fetch('http://localhost:3000/upload', {
-    method: 'POST',
-    body: formData,
-  })
-
-  const data = await response.text()
-
-  console.log(data)
+  emit('update:files', files.value)
 }
 </script>
 
 <template>
   <div>
     <AppFileUploadDropZone :accept :max-file-size :multiple @select:files="onSelectFiles" />
-    <p class="text-muted-foreground mt-4 px-4 text-sm">
-      The maximum file size is {{ MAX_FILE_MB }} mb
+    <p class="text-muted-foreground mt-4 text-sm">
+      Allowed files are <span class="bg-muted text-muted-foreground rounded-sm p-1">pdf</span>,
+      <span class="bg-muted text-muted-foreground rounded-sm p-1">md</span>,
+      <span class="bg-muted text-muted-foreground rounded-sm p-1">txt</span>
+      (max {{ MAX_FILE_MB }} mb)
     </p>
 
     <Separator class="mt-4 mb-8" />
@@ -64,5 +53,5 @@ const upload = async () => {
     <AppFileUploadPreviewList :files="files" @delete:file="onDeleteFile" />
   </div>
 
-  <Button class="mt-4" @click="upload">Create Deck</Button>
+  <!--  <Button class="mt-4" @click="upload">Create Deck</Button>-->
 </template>

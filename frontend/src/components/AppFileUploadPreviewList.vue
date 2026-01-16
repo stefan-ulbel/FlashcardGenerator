@@ -16,6 +16,6 @@ defineProps<{
         @delete:file="$emit('delete:file', file)"
       />
     </template>
-    <div v-else class="flex items-center justify-center">No files uploaded</div>
+    <div v-else class="flex items-center justify-center">No files uploaded.</div>
   </div>
 </template>

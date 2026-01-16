@@ -34,8 +34,6 @@ const selectFiles = (event: Event) => {
     return isAcceptedFileType(file) && !exceedsMaxFileSize(file)
   })
 
-  console.log(filteredFiles)
-
   emit('select:files', filteredFiles)
 }
 </script>
@@ -58,7 +56,7 @@ const selectFiles = (event: Event) => {
 
       <p class="mt-4 text-lg font-semibold">Upload files</p>
 
-      <p class="text-muted-foreground mt-3 text-sm">Drag and drop or click to upload</p>
+      <p class="text-muted-foreground mt-3 text-sm">Drag and drop or click to upload.</p>
     </CardContent>
     <input
       :accept="accept.join(',')"
