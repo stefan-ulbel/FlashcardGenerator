@@ -4,9 +4,10 @@ import { generateQuiz } from '@/lib/api/quiz.ts'
 
 let mockDecks: Deck[] = [
   {
-    id: 4,
-    title: 'Service Design',
-    slug: 'service-design',
+    id: 1,
+    title: 'My First Deck',
+    slug: 'my-first-deck',
+    topic: 'Service Design',
     tags: [],
     last_learned_at: '2026-01-16T15:29:42.100Z',
     flashcards: [
@@ -72,9 +73,74 @@ let mockDecks: Deck[] = [
       },
     ],
   },
+  {
+    id: 2,
+    title: 'My Lovely Deck',
+    topic: 'Cloud Continuum',
+    slug: 'my-lovely-deck',
+    tags: [],
+    last_learned_at: '2026-01-16T15:54:12.643Z',
+    flashcards: [
+      {
+        id: 1,
+        question:
+          "According to the OpenFog Consortium's definition, what distinguishes Fog Computing from Edge Computing in terms of architecture?",
+        answers: [
+          'Fog computing is a vertical architecture restricted to the first hop of IoT devices.',
+          'Fog computing is a system-level horizontal architecture that distributes resources anywhere along the continuum.',
+          'Fog computing focuses exclusively on the boundary between digital and physical entities.',
+          "Fog computing is a telco-oriented case that only spans the operator's network edge.",
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 2,
+        question:
+          'In the context of the IoT software stack, which of the following is a specific requirement for the Gateway level?',
+        answers: [
+          'A Hardware Abstraction Layer (HAL) for direct sensor access.',
+          'At least two different network technologies to handle heterogeneous radios and cloud connectivity.',
+          'Centralized registration for authentication and access control of all devices.',
+          'Special-purpose RTOS for MCU-based devices to minimize power consumption.',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 3,
+        question:
+          "Which challenge is specifically noted regarding 'scaling out' in the computing continuum compared to the cloud?",
+        answers: [
+          'The lack of open standards preventing interoperability between device stacks.',
+          'Cloud providers refusing to allow offloading from edge devices.',
+          'Limited availability of nearby edge hosts and the fact that they may belong to other owners.',
+          'The inherent inability of edge devices to run general-purpose operating systems like Linux.',
+        ],
+        correctAnswer: 3,
+      },
+      {
+        id: 4,
+        question:
+          "What is identified as a primary reason for the transition away from the 'traditional' cloud-centric IoT design?",
+        answers: [
+          'The lack of resource-hungry services in contemporary IoT environments.',
+          'The discovery that cloud instances have finite compute capacity for data analysis.',
+          'Data transport straining the network infrastructure and threatening privacy.',
+          'The inability of cloud platforms to provide end-to-end control and interoperability.',
+        ],
+        correctAnswer: 3,
+      },
+      {
+        id: 5,
+        question:
+          'Which design principle for IoT software stacks ensures that each stack component can be utilized independently of the others?',
+        answers: ['Loose coupling', 'Platform independence', 'Well-defined APIs', 'Modularity'],
+        correctAnswer: 1,
+      },
+    ],
+  },
 ]
 
-let nextId = 4
+let nextId = 3
 
 export const fetchDecks = async (): Promise<Deck[]> => {
   await delay(500)
@@ -94,9 +160,15 @@ export const addDeck = async (formData: FormData): Promise<Deck> => {
     throw new Error("'title' field is required")
   }
 
+  const topic = formData.get('topic')
+  if (!topic) {
+    throw new Error("'topic' field is required")
+  }
+
   const deck: Deck = {
     id: nextId,
     title: title.toString(),
+    topic: topic.toString(),
     slug: title.toString().toLowerCase().replace(/\s/g, '-'),
     tags: [],
     last_learned_at: new Date().toISOString(),
