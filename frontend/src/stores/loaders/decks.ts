@@ -1,6 +1,6 @@
-import type { Deck } from '@/types/deck.ts'
+import type { Deck, UpdateDeck } from '@/types/deck.ts'
 import { useMemoize } from '@vueuse/core'
-import { addDeck, fetchDeck, fetchDecks, removeDeck } from '@/lib/api/mock-decks.ts'
+import { addDeck, editDeck, fetchDeck, fetchDecks, removeDeck } from '@/lib/api/mock-decks.ts'
 
 export const useDecksStore = defineStore('decks', () => {
   const decks = ref<Deck[] | null>(null)
@@ -27,10 +27,15 @@ export const useDecksStore = defineStore('decks', () => {
     loadDecks.clear()
   }
 
+  const updateDeck = async (updateDeck: UpdateDeck) => {
+    await editDeck(updateDeck)
+    loadDecks.clear()
+  }
+
   const deleteDeck = async (slug: string) => {
     await removeDeck(slug)
     loadDecks.clear()
   }
 
-  return { decks, deck, getDecks, getDeck, createDeck, deleteDeck }
+  return { decks, deck, getDecks, getDeck, createDeck, updateDeck, deleteDeck }
 })

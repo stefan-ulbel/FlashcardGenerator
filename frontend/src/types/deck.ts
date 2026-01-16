@@ -8,3 +8,5 @@ export interface Deck {
   last_learned_at: string
   flashcards: Flashcard[]
 }
+
+export type UpdateDeck = Pick<Deck, 'id' | 'title'>

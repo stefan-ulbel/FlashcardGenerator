@@ -1,14 +1,36 @@
 <script lang="ts" setup>
-import { z } from 'zod'
 import { useForm } from '@tanstack/vue-form'
+import { z } from 'zod'
+import type { UpdateDeck } from '@/types/deck.ts'
 
-usePageStore().title = 'Create Deck'
-
+const route = useRoute('/decks/[slug]/edit')
 const router = useRouter()
 
-const { createDeck } = useDecksStore()
+const decksStore = useDecksStore()
+const { deck } = storeToRefs(decksStore)
+const { getDeck, updateDeck } = decksStore
 
-const files = ref<File[]>([])
+const newDeck = ref<Partial<UpdateDeck> | null>(null)
+
+watch(
+  () => route.params.slug,
+  async (slug: string) => {
+    await getDeck(slug)
+    newDeck.value = {
+      id: deck.value?.id,
+      title: deck.value?.title,
+    }
+  },
+  { immediate: true },
+)
+
+watch(
+  () => deck.value?.title,
+  () => {
+    usePageStore().title = `Edit - ${deck.value?.title ?? ''}`
+  },
+  { immediate: true },
+)
 
 const formSchema = z.object({
   title: z
@@ -17,10 +39,9 @@ const formSchema = z.object({
     .max(64, 'Deck title must be at most 64 characters.'),
 })
 
+// TODO(raoul): I'm getting some type errors, don't exactly know why since it's my first time using TanStack Forms.
 const form = useForm({
-  defaultValues: {
-    title: '',
-  },
+  defaultValues: deck.value,
   validators: {
     onSubmit: formSchema,
   },
@@ -33,29 +54,18 @@ const isInvalid = (field: any) => {
   return field.state.meta.isTouched && !field.state.meta.isValid
 }
 
-const onUpdateFiles = (updatedFiles: File[]) => {
-  files.value = updatedFiles
+const submit = async ({ title }: { title: string }) => {
+  await updateDeck({ id: deck.value!.id, title })
+  await router.push(`/decks/${deck.value!.slug}`)
 }
 
-const submit = async ({ title }: { title: string }) => {
-  if (!files.value.length) {
-    return
-  }
-
-  const formData = new FormData()
-
-  formData.append('title', title)
-  for (const file of files.value) {
-    formData.append(file.name, file)
-  }
-
-  await createDeck(formData)
-  await router.push('/decks')
+const cancel = async () => {
+  await router.push(`/decks/${deck.value!.slug}`)
 }
 </script>
 
 <template>
-  <div class="w-full max-w-xl">
+  <section v-if="deck">
     <form @submit.prevent="form.handleSubmit">
       <FieldGroup>
         <FieldSet>
@@ -66,6 +76,7 @@ const submit = async ({ title }: { title: string }) => {
               <Input
                 :id="field.name"
                 :aria-invalid="isInvalid(field)"
+                :default-value="deck?.title ?? ''"
                 :model-value="field.state.value"
                 placeholder="Generative AI"
                 required
@@ -77,26 +88,14 @@ const submit = async ({ title }: { title: string }) => {
             </Field>
           </form.Field>
         </FieldSet>
-        <FieldSeparator />
-
-        <FieldSet>
-          <FieldLegend>Files</FieldLegend>
-          <FieldDescription>
-            The uploaded files are used to generate your flashcards.
-          </FieldDescription>
-
-          <Field>
-            <FieldLabel for="file">File Upload</FieldLabel>
-            <AppFileUpload :multiple="true" @update:files="onUpdateFiles" />
-          </Field>
-        </FieldSet>
 
         <Field orientation="horizontal">
-          <Button type="submit"> Submit </Button>
+          <Button type="submit">Submit</Button>
+          <Button variant="outline" @click="cancel">Cancel</Button>
         </Field>
       </FieldGroup>
     </form>
-  </div>
+  </section>
 </template>
 
 <style scoped></style>

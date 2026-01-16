@@ -44,9 +44,16 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
-    '/decks/[slug]': RouteRecordInfo<
-      '/decks/[slug]',
+    '/decks/[slug]/': RouteRecordInfo<
+      '/decks/[slug]/',
       '/decks/:slug',
+      { slug: ParamValue<true> },
+      { slug: ParamValue<false> },
+      | never
+    >,
+    '/decks/[slug]/edit': RouteRecordInfo<
+      '/decks/[slug]/edit',
+      '/decks/:slug/edit',
       { slug: ParamValue<true> },
       { slug: ParamValue<false> },
       | never
@@ -89,9 +96,15 @@ declare module 'vue-router/auto-routes' {
       views:
         | never
     }
-    'src/pages/decks/[slug].vue': {
+    'src/pages/decks/[slug]/index.vue': {
       routes:
-        | '/decks/[slug]'
+        | '/decks/[slug]/'
+      views:
+        | never
+    }
+    'src/pages/decks/[slug]/edit.vue': {
+      routes:
+        | '/decks/[slug]/edit'
       views:
         | never
     }

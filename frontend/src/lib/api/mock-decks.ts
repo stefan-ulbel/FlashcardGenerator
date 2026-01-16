@@ -1,4 +1,4 @@
-import type { Deck } from '@/types/deck.ts'
+import type { Deck, UpdateDeck } from '@/types/deck.ts'
 import { delay } from '@/lib/delay.ts'
 
 let mockDecks: Deck[] = [
@@ -70,19 +70,19 @@ let mockDecks: Deck[] = [
 let nextId = 4
 
 export const fetchDecks = async (): Promise<Deck[]> => {
-  await delay(1_000)
+  await delay(500)
 
   return mockDecks
 }
 
 export const fetchDeck = async (slug: string): Promise<Deck | null> => {
-  await delay(1_000)
+  await delay(500)
 
   return mockDecks.find((deck) => deck.slug === slug) ?? null
 }
 
 export const addDeck = async (formData: FormData): Promise<Deck> => {
-  await delay(1_000)
+  await delay(500)
 
   console.log(formData)
 
@@ -104,6 +104,20 @@ export const addDeck = async (formData: FormData): Promise<Deck> => {
   nextId = nextId + 1
 
   return deck
+}
+
+export const editDeck = async (updateDeck: UpdateDeck): Promise<Deck | null> => {
+  await delay(500)
+
+  const existingDeck = mockDecks.find((deck) => deck.id === updateDeck.id)
+  if (!existingDeck) {
+    return null
+  }
+
+  existingDeck.title = updateDeck.title
+  existingDeck.slug = updateDeck.title.toLowerCase().replace(/\s/g, '-')
+
+  return existingDeck
 }
 
 export const removeDeck = async (slug: string): Promise<void> => {
