@@ -39,7 +39,7 @@ const formSchema = z.object({
     .max(64, 'Deck title must be at most 64 characters.'),
 })
 
-// TODO(raoul): I'm getting some type errors, don't exactly know why since it's my first time using TanStack Forms.
+// TODO(raoul): I'm getting some type errors, don't exactly know why.
 const form = useForm({
   defaultValues: deck.value,
   validators: {
