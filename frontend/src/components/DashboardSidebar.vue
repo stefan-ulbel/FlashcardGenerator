@@ -32,7 +32,7 @@ const menuLinks = [
             exact-active-class="bg-muted"
             to="/decks/create"
           >
-            <SidebarMenuButton size="lg">
+            <SidebarMenuButton class="cursor-pointer" size="lg">
               <div
                 class="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg"
               >

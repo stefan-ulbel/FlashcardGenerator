@@ -1,5 +1,4 @@
 import type { Deck, UpdateDeck } from '@/types/deck.ts'
-import { delay } from '@/lib/delay.ts'
 import { generateQuiz } from '@/lib/api/quiz.ts'
 
 let mockDecks: Deck[] = [
@@ -143,14 +142,10 @@ let mockDecks: Deck[] = [
 let nextId = 3
 
 export const fetchDecks = async (): Promise<Deck[]> => {
-  await delay(500)
-
   return mockDecks
 }
 
 export const fetchDeck = async (slug: string): Promise<Deck | null> => {
-  await delay(500)
-
   return mockDecks.find((deck) => deck.slug === slug) ?? null
 }
 
@@ -196,8 +191,6 @@ export const addDeck = async (formData: FormData): Promise<Deck> => {
 }
 
 export const editDeck = async (updateDeck: UpdateDeck): Promise<Deck | null> => {
-  await delay(500)
-
   const existingDeck = mockDecks.find((deck) => deck.id === updateDeck.id)
   if (!existingDeck) {
     return null

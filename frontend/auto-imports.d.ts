@@ -59,7 +59,7 @@ declare global {
   const triggerRef: typeof import('vue').triggerRef
   const unref: typeof import('vue').unref
   const useAttrs: typeof import('vue').useAttrs
-  const useCounterStore: typeof import('./src/stores/counter').useCounterStore
+  const useCounterStore: typeof import('@/stores/practice.ts').useCounterStore
   const useCssModule: typeof import('vue').useCssModule
   const useCssVars: typeof import('vue').useCssVars
   const useDeckStore: typeof import('@/stores/loaders/decks.ts').useDeckStore
@@ -67,6 +67,7 @@ declare global {
   const useId: typeof import('vue').useId
   const useModel: typeof import('vue').useModel
   const usePageStore: typeof import('./src/stores/page').usePageStore
+  const usePracticeStore: typeof import('./src/stores/practice').usePracticeStore
   const useRoute: typeof import('vue-router').useRoute
   const useRouter: typeof import('vue-router').useRouter
   const useSlots: typeof import('vue').useSlots

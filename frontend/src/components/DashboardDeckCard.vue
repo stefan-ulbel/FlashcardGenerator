@@ -20,7 +20,9 @@ defineProps<{
       </RouterLink>
     </CardHeader>
     <CardContent class="lg:w-full lg:justify-start">
-      <Button class="cursor-pointer">Practice</Button>
+      <RouterLink :to="`/practice/${deck.slug}`">
+        <Button class="cursor-pointer"> Practice </Button>
+      </RouterLink>
     </CardContent>
   </Card>
 </template>
