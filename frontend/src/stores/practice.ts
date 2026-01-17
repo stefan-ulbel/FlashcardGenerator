@@ -5,10 +5,15 @@ export const usePracticeStore = defineStore('practice', () => {
   const currentIndex = ref(0)
   const finished = ref(false)
   const _hidden = ref(true)
+  const _correctAnswers = ref(0)
 
   const hidden = computed(() => _hidden.value)
 
+  const correctAnswers = computed(() => _correctAnswers.value)
+
   const flashcards = computed(() => deck.value?.flashcards ?? [])
+
+  const totalFlashcards = computed(() => flashcards.value.length)
 
   const currentFlashcard = computed(() => {
     const id = shuffledIds.value[currentIndex.value]
@@ -32,6 +37,7 @@ export const usePracticeStore = defineStore('practice', () => {
 
     currentIndex.value = 0
     finished.value = false
+    _correctAnswers.value = 0
   }
 
   function restartPractice() {
@@ -55,6 +61,10 @@ export const usePracticeStore = defineStore('practice', () => {
     _hidden.value = false
   }
 
+  function incrementCorrectAnswers() {
+    _correctAnswers.value++
+  }
+
   return {
     shuffledIds,
     currentIndex,
@@ -67,5 +77,8 @@ export const usePracticeStore = defineStore('practice', () => {
     hidden,
     hideAnswers,
     showAnswers,
+    correctAnswers,
+    incrementCorrectAnswers,
+    totalFlashcards,
   }
 })

@@ -9,8 +9,10 @@ const { deck } = storeToRefs(decksStore)
 const { getDeck } = decksStore
 
 const practiceStore = usePracticeStore()
-const { progress, finished, currentFlashcard } = storeToRefs(practiceStore)
-const { startPractice, nextFlashcard, hideAnswers, restartPractice } = usePracticeStore()
+const { progress, finished, currentFlashcard, correctAnswers, totalFlashcards } =
+  storeToRefs(practiceStore)
+const { startPractice, nextFlashcard, hideAnswers, restartPractice, incrementCorrectAnswers } =
+  usePracticeStore()
 
 const started = ref(false)
 const answeredFlashcard = ref(false)
@@ -32,6 +34,10 @@ function onStartPractice() {
 function onAnswerFlashcard(correct: boolean) {
   answeredFlashcard.value = true
   answeredText.value = `${correct ? 'Correct' : 'Incorrect'} Answer!`
+
+  if (correct) {
+    incrementCorrectAnswers()
+  }
 }
 
 function onNextQuestion() {
@@ -55,7 +61,10 @@ async function onGoHome() {
   <div v-if="deck" class="mx-auto flex h-full max-w-2xl items-center justify-center">
     <div v-if="started">
       <div v-if="finished" class="flex flex-col items-center">
-        <h2 class="text-xl">Finished!</h2>
+        <h2 class="text-xl">
+          You've got <span class="bg-muted rounded p-1">{{ correctAnswers }}</span> correct answer/s
+          out of <span class="bg-muted rounded p-1">{{ totalFlashcards }}</span> question/s!
+        </h2>
         <div class="mt-4 space-x-4">
           <Button @click="onRestart">Practice Again</Button>
           <Button variant="outline" @click="onGoHome">Go Back Home</Button>
