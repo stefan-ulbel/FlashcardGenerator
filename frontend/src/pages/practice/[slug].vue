@@ -9,7 +9,7 @@ const { deck } = storeToRefs(decksStore)
 const { getDeck } = decksStore
 
 const practiceStore = usePracticeStore()
-const { finished, currentFlashcard } = storeToRefs(practiceStore)
+const { progress, finished, currentFlashcard } = storeToRefs(practiceStore)
 const { startPractice, nextFlashcard, hideAnswers, restartPractice } = usePracticeStore()
 
 const started = ref(false)
@@ -75,6 +75,7 @@ async function onGoHome() {
             Next Question
           </Button>
         </div>
+        <Progress :model-value="progress" class="mt-6" />
       </div>
     </div>
 

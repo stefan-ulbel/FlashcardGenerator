@@ -86,6 +86,7 @@ declare module 'vue' {
     Label: typeof import('./src/components/ui/label/Label.vue')['default']
     PracticeFlashcard: typeof import('./src/components/PracticeFlashcard.vue')['default']
     PracticeFlashcardAnswer: typeof import('./src/components/PracticeFlashcardAnswer.vue')['default']
+    Progress: typeof import('./src/components/ui/progress/Progress.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Separator: typeof import('./src/components/ui/separator/Separator.vue')['default']
