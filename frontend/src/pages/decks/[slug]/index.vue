@@ -41,7 +41,6 @@ const onDeleteFlashcard = (flashcard: Flashcard) => {
 
 <template>
   <section v-if="deck">
-    <h2 class="text-muted-foreground text-xl">Topic - {{ deck.topic }}</h2>
     <div class="mt-6 flex w-full justify-end space-x-3">
       <Button>
         <RouterLink :to="`/decks/${deck.slug}/edit`">Edit Deck</RouterLink>

@@ -137,13 +137,11 @@ const server = http.createServer(async (req, res) => {
   if (path === "/generate-quiz" && req.method === "POST") {
     try {
       const contentType = req.headers["content-type"] || "";
-      let topic: string;
       let numQuestions = 5;
       let files: ParsedMultipart["files"] = [];
 
       if (contentType.includes("multipart/form-data")) {
         const parsed = await parseMultipart(req);
-        topic = parsed.fields.topic || parsed.fields["topic"];
         numQuestions = parsed.fields.numQuestions
           ? parseInt(parsed.fields.numQuestions, 10)
           : 5;
@@ -151,24 +149,22 @@ const server = http.createServer(async (req, res) => {
       } else {
         // Handle JSON body
         const body = await parseBody(req);
-        topic = body.topic;
         numQuestions = body.numQuestions || 5;
       }
 
-      if (!topic && files.length === 0) {
+      if (files.length === 0) {
         sendJSON(res, 400, {
-          error: "Topic is required or at least one file must be provided",
+          error: "At least one file must be provided",
         });
         return;
       }
 
       // Call the Gemini API to generate quiz
       try {
-        const questions = await generateQuiz(files, topic || "", numQuestions);
+        const questions = await generateQuiz(files, numQuestions);
 
         const quiz = {
           id: `quiz-${Date.now()}`,
-          topic: topic || "Document-based quiz",
           numQuestions: questions.length,
           filesUploaded: files.length,
           questions,
@@ -194,17 +190,14 @@ const server = http.createServer(async (req, res) => {
   if (path === "/generate-single-question" && req.method === "POST") {
     try {
       const contentType = req.headers["content-type"] || "";
-      let topic: string;
       let files: ParsedMultipart["files"] = [];
 
       if (contentType.includes("multipart/form-data")) {
         const parsed = await parseMultipart(req);
-        topic = parsed.fields.topic || parsed.fields["topic"] || "";
         files = parsed.files;
       } else {
         // Handle JSON body
-        const body = await parseBody(req);
-        topic = body.topic || "";
+        await parseBody(req);
       }
 
       if (files.length === 0) {
@@ -214,11 +207,10 @@ const server = http.createServer(async (req, res) => {
 
       // Call the Gemini API to generate single question flashcards
       try {
-        const cards = await generateSingleQuestion(files, topic);
+        const cards = await generateSingleQuestion(files);
 
         const result = {
           id: `single-question-${Date.now()}`,
-          topic: topic || "Document-based flashcards",
           filesUploaded: files.length,
           cards,
           createdAt: new Date().toISOString(),

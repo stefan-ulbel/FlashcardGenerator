@@ -15,16 +15,11 @@ const formSchema = z.object({
     .string()
     .min(3, 'Deck title must be at least 3 characters.')
     .max(64, 'Deck title must be at most 64 characters.'),
-  topic: z
-    .string()
-    .min(3, 'Deck topic must be at least 3 characters.')
-    .max(64, 'Deck topic must be at most 64 characters.'),
 })
 
 const form = useForm({
   defaultValues: {
     title: '',
-    topic: '',
   },
   validators: {
     onSubmit: formSchema,
@@ -42,7 +37,7 @@ const onUpdateFiles = (updatedFiles: File[]) => {
   files.value = updatedFiles
 }
 
-const submit = async ({ title, topic }: { title: string; topic: string }) => {
+const submit = async ({ title }: { title: string }) => {
   if (!files.value.length) {
     return
   }
@@ -50,7 +45,6 @@ const submit = async ({ title, topic }: { title: string; topic: string }) => {
   const formData = new FormData()
 
   formData.append('title', title)
-  formData.append('topic', topic)
   for (const file of files.value) {
     formData.append(file.name, file)
   }
@@ -79,24 +73,6 @@ const submit = async ({ title, topic }: { title: string; topic: string }) => {
                 @input="field.handleChange($event.target.value)"
               />
               <FieldDescription>Choose a unique title for your deck.</FieldDescription>
-              <FieldError v-if="isInvalid(field)" :errors="field.state.meta.errors" />
-            </Field>
-          </form.Field>
-          <form.Field #default="{ field }" name="topic">
-            <Field :data-invalid="isInvalid(field)">
-              <FieldLabel :for="field.name">Topic</FieldLabel>
-              <Input
-                :id="field.name"
-                :aria-invalid="isInvalid(field)"
-                :model-value="field.state.value"
-                placeholder="Generative AI"
-                required
-                @blur="field.handleBlur"
-                @input="field.handleChange($event.target.value)"
-              />
-              <FieldDescription>
-                Describe the topic for which the flashcards should be generated.
-              </FieldDescription>
               <FieldError v-if="isInvalid(field)" :errors="field.state.meta.errors" />
             </Field>
           </form.Field>

@@ -6,7 +6,6 @@ let mockDecks: Deck[] = [
     id: 1,
     title: 'My First Deck',
     slug: 'my-first-deck',
-    topic: 'Service Design',
     tags: [],
     last_learned_at: '2026-01-16T15:29:42.100Z',
     flashcards: [
@@ -75,7 +74,6 @@ let mockDecks: Deck[] = [
   {
     id: 2,
     title: 'My Lovely Deck',
-    topic: 'Cloud Continuum',
     slug: 'my-lovely-deck',
     tags: [],
     last_learned_at: '2026-01-16T15:54:12.643Z',
@@ -155,15 +153,9 @@ export const addDeck = async (formData: FormData): Promise<Deck> => {
     throw new Error("'title' field is required")
   }
 
-  const topic = formData.get('topic')
-  if (!topic) {
-    throw new Error("'topic' field is required")
-  }
-
   const deck: Deck = {
     id: nextId,
     title: title.toString(),
-    topic: topic.toString(),
     slug: title.toString().toLowerCase().replace(/\s/g, '-'),
     tags: [],
     last_learned_at: new Date().toISOString(),

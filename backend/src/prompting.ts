@@ -82,16 +82,13 @@ const singleQuestionSchema = {
 // Export function for generating quiz
 export async function generateQuiz(
   files: DataFile[] = [],
-  topic = "",
   numQuestions = 5
 ) {
   if (!process.env.GOOGLE_API_KEY)
     throw new Error("No API key found - set GOOGLE_API_KEY in .env ");
   const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
-  //const quizPrompt = `Use this document from a lecture and extract ${numQuestions} relevant exam questions similar to flashcards or anki cards. Each card should have one question and four possible answers, with one of them being the correct one. The questions should help in understanding the topic${topic ? `: ${topic}` : ''}. The answers must not be obvious. Do not include content that is not in the document in the questions and not in the answers. Answer with nothing else except the cards.`;
-  const quizPrompt = `You are an expert educational content generator. Your task is to analyze the provided document and generate ${numQuestions} high-quality multiple-choice exam questions designed to test deep understanding and conceptual application of the material${
-    topic ? `, focusing specifically on: ${topic}` : ""
-  }.
+  //const quizPrompt = `Use this document from a lecture and extract ${numQuestions} relevant exam questions similar to flashcards or anki cards. Each card should have one question and four possible answers, with one of them being the correct one. The answers must not be obvious. Do not include content that is not in the document in the questions and not in the answers. Answer with nothing else except the cards.`;
+  const quizPrompt = `You are an expert educational content generator. Your task is to analyze the provided document and generate ${numQuestions} high-quality multiple-choice exam questions designed to test deep understanding and conceptual application of the material.
 
 STRICT OUTPUT FORMAT:
 Return ONLY a raw JSON array of objects (no markdown blocks, no intro text). 
@@ -177,16 +174,13 @@ Ensure all information is strictly derived from the provided document. Do not us
 
 // Export function for generating single question flashcards using singleQuestionPrompt
 export async function generateSingleQuestion(
-  files: DataFile[] = [],
-  topic = ""
+  files: DataFile[] = []
 ) {
   if (!process.env.GOOGLE_API_KEY)
     throw new Error("No API key found - set GOOGLE_API_KEY in .env ");
   const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
-  //const singleQuestionPrompt = `Use this document from a lecture and extract relevant exam questions similar to flashcards or anki cards. Each card should have one question and one possible answer. The questions should help in understanding the topic${topic ? `: ${topic}` : ''}. The answers must not be obvious. Do not include content that is not in the document in the questions and not in the answers. Answer with nothing else except the cards.`;
-  const singleQuestionPrompt = `You are an expert educational content generator. Your task is to analyze the provided document and generate high-quality single-question flashcards (Question & Answer) designed to test deep understanding and conceptual application of the material${
-    topic ? `, focusing specifically on: ${topic}` : ""
-  }.
+  //const singleQuestionPrompt = `Use this document from a lecture and extract relevant exam questions similar to flashcards or anki cards. Each card should have one question and one possible answer. The answers must not be obvious. Do not include content that is not in the document in the questions and not in the answers. Answer with nothing else except the cards.`;
+  const singleQuestionPrompt = `You are an expert educational content generator. Your task is to analyze the provided document and generate high-quality single-question flashcards (Question & Answer) designed to test deep understanding and conceptual application of the material.
 
 STRICT OUTPUT FORMAT:
 Return ONLY a raw JSON array of objects (no markdown blocks, no intro text). 
