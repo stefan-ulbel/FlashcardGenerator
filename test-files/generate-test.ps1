@@ -9,9 +9,6 @@ param(
     [string]$Topic = "",
     
     [Parameter(Mandatory = $false)]
-    [int]$NumQuestions = 5,
-    
-    [Parameter(Mandatory = $false)]
     [ValidateSet("quiz", "single")]
     [string]$Mode = "quiz"
 )
@@ -45,7 +42,6 @@ Write-Host "====================================" -ForegroundColor Cyan
 Write-Host "Mode: $Mode"
 Write-Host "PDF: $absolutePath"
 Write-Host "Topic: $(if ($Topic) { $Topic } else { '(none)' })"
-if ($Mode -eq "quiz") { Write-Host "Questions: $NumQuestions" }
 Write-Host ""
 
 Write-Host "Generating flashcards..." -ForegroundColor Yellow
@@ -60,10 +56,6 @@ try {
     
     if ($Topic) {
         $curlArgs += @("-F", "topic=$Topic")
-    }
-    
-    if ($Mode -eq "quiz") {
-        $curlArgs += @("-F", "numQuestions=$NumQuestions")
     }
     
     $curlArgs += $endpoint

@@ -137,19 +137,14 @@ const server = http.createServer(async (req, res) => {
   if (path === "/generate-quiz" && req.method === "POST") {
     try {
       const contentType = req.headers["content-type"] || "";
-      let numQuestions = 5;
       let files: ParsedMultipart["files"] = [];
 
       if (contentType.includes("multipart/form-data")) {
         const parsed = await parseMultipart(req);
-        numQuestions = parsed.fields.numQuestions
-          ? parseInt(parsed.fields.numQuestions, 10)
-          : 5;
         files = parsed.files;
       } else {
         // Handle JSON body
         const body = await parseBody(req);
-        numQuestions = body.numQuestions || 5;
       }
 
       if (files.length === 0) {
@@ -161,11 +156,10 @@ const server = http.createServer(async (req, res) => {
 
       // Call the Gemini API to generate quiz
       try {
-        const questions = await generateQuiz(files, numQuestions);
+        const questions = await generateQuiz(files);
 
         const quiz = {
           id: `quiz-${Date.now()}`,
-          numQuestions: questions.length,
           filesUploaded: files.length,
           questions,
           createdAt: new Date().toISOString(),

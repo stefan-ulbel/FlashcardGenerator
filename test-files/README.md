@@ -9,7 +9,7 @@ Copy your sample PDF files into this folder.
 
 **Quiz mode (multiple choice):**
 ```powershell
-.\test-files\generate-test.ps1 -PdfPath ".\test-files\your-file.pdf" -Mode quiz -NumQuestions 5
+.\test-files\generate-test.ps1 -PdfPath ".\test-files\your-file.pdf" -Mode quiz
 ```
 
 **Single question mode (Q&A):**

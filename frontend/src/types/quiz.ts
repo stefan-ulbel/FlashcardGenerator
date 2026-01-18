@@ -3,7 +3,6 @@
  *
  * {
  *   "id": "quiz-1768575191114",
- *   "numQuestions": 5,
  *   "filesUploaded": 1,
  *   "questions": [
  *   {
@@ -67,7 +66,6 @@
  */
 export type GenerateQuizResponse = {
   id: string
-  numQuestions: number
   filesUploaded: number
   questions: {
     id: string

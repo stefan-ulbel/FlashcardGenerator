@@ -42,14 +42,13 @@ curl http://localhost:3000/health
 ```bash
 curl -X POST http://localhost:3000/generate-quiz \
   -H "Content-Type: application/json" \
-  -d '{"topic": "JavaScript", "numQuestions": 5}'
+  -d '{"topic": "JavaScript"}'
 ```
 
 **Request Body:**
 ```json
 {
-  "topic": "JavaScript",
-  "numQuestions": 5
+  "topic": "JavaScript"
 }
 ```
 
@@ -57,21 +56,17 @@ curl -X POST http://localhost:3000/generate-quiz \
 ```bash
 curl -X POST http://localhost:3000/generate-quiz \
   -F "topic=JavaScript" \
-  -F "numQuestions=5" \
   -F "file=@/path/to/document.pdf"
 ```
 
 **Form Data:**
 - `topic` (required): Das Thema für das Quiz
-- `numQuestions` (optional): Anzahl der Fragen (Standard: 5)
 - `file` (optional): Datei(en) im Format PDF, MD oder TXT
 
 **Response:**
 ```json
 {
   "id": "quiz-1234567890",
-  "topic": "JavaScript",
-  "numQuestions": 5,
   "filesUploaded": 1,
   "questions": [
     {
