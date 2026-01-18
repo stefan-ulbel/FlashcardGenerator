@@ -18,12 +18,6 @@ export const columns: ColumnDef<Deck>[] = [
   },
 
   {
-    accessorKey: 'tags',
-    header: () => h('div', { class: 'text-left' }, 'Tags'),
-    cell: ({ row }) => h('div', { class: 'text-left font-medium' }, row.original.tags.join(', ')),
-  },
-
-  {
     accessorKey: 'last_learned_at',
     header: () => h('div', { class: 'text-left' }, 'Last Learned'),
     cell: ({ row }) =>
