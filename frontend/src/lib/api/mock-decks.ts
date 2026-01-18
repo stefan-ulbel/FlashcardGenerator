@@ -72,7 +72,7 @@ let mockDecks: Deck[] = [
   },
 ]
 
-let nextId = 3
+let nextId = 2
 
 export const fetchDecks = async (): Promise<Deck[]> => {
   return mockDecks
