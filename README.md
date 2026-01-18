@@ -18,8 +18,23 @@ cd FlashcardGenerator
 ```
 
 2. Install dependencies:
+   
+   This project uses a monorepo structure with separate `package.json` files in the root, `backend/`, and `frontend/` directories. You need to install dependencies in each folder:
+   
 ```bash
+# Install root dependencies (concurrently for running both servers)
 npm install
+
+# Install backend dependencies
+cd backend
+npm install
+
+# Install frontend dependencies
+cd ../frontend
+npm install
+
+# Return to root directory
+cd ..
 ```
 
 3. Configure API Key:
