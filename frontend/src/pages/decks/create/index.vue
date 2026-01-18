@@ -9,6 +9,7 @@ const router = useRouter()
 const { createDeck } = useDecksStore()
 
 const files = ref<File[]>([])
+const loading = ref(false)
 
 const formSchema = z.object({
   title: z
@@ -49,8 +50,16 @@ const submit = async ({ title }: { title: string }) => {
     formData.append(file.name, file)
   }
 
-  await createDeck(formData)
-  await router.push('/decks')
+  loading.value = true
+
+  try {
+    await createDeck(formData)
+    await router.push('/decks')
+  } catch (e) {
+    console.error(e)
+  } finally {
+    loading.value = false
+  }
 }
 </script>
 
@@ -92,7 +101,11 @@ const submit = async ({ title }: { title: string }) => {
         </FieldSet>
 
         <Field orientation="horizontal">
-          <Button type="submit"> Submit </Button>
+          <Button :disabled="loading" type="submit">
+            <i-lucide-loader-circle v-if="loading" class="animate-spin" />
+            <i-lucide-brain v-else />
+            Submit
+          </Button>
         </Field>
       </FieldGroup>
     </form>

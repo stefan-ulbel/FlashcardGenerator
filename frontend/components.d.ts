@@ -66,6 +66,7 @@ declare module 'vue' {
     FlashcardExpanded: typeof import('./src/components/FlashcardExpanded.vue')['default']
     FlashcardExpandedAnswer: typeof import('./src/components/FlashcardExpandedAnswer.vue')['default']
     ILucideApple: typeof import('~icons/lucide/apple')['default']
+    ILucideBrain: typeof import('~icons/lucide/brain')['default']
     ILucideCirclePlus: typeof import('~icons/lucide/circle-plus')['default']
     ILucideCross: typeof import('~icons/lucide/cross')['default']
     ILucideExternalLink: typeof import('~icons/lucide/external-link')['default']
