@@ -11,13 +11,7 @@ LLM-powered adaptive flashcard generator that automatically creates flashcards f
 
 ### Installation
 
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd FlashcardGenerator
-```
-
-2. Install dependencies:
+1. Install dependencies:
    
    This project uses a monorepo structure with separate `package.json` files in the root, `backend/`, and `frontend/` directories. You need to install dependencies in each folder:
    
@@ -37,12 +31,12 @@ npm install
 cd ..
 ```
 
-3. Configure API Key:
+2. Configure API Key:
    - Open `backend/.env`
    - Replace `GEMINI_API_KEY` with your own key
    - Get your API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
 
-4. Start everything:
+3. Start everything:
 ```bash
 npm run dev
 ```
