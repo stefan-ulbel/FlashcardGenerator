@@ -87,16 +87,15 @@ export async function generateQuiz(
     throw new Error("No API key found - set GOOGLE_API_KEY in .env ");
   const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
   //const quizPrompt = `Use this document from a lecture and extract relevant exam questions similar to flashcards or anki cards. Each card should have one question and four possible answers, with one of them being the correct one. The answers must not be obvious. Do not include content that is not in the document in the questions and not in the answers. Answer with nothing else except the cards.`;
-  const quizPrompt = `You are an expert educational content generator. Your task is to analyze the provided document and generate high-quality multiple-choice exam questions designed to test deep understanding and conceptual application of the material.
+  const quizPrompt = `You are an expert educational content generator. Your task is to analyze the provided document and generate high-quality multiple-choice exam questions designed to test deep understanding and conceptual application of the material. Evaluate how many questions are needed to cover the entirety of the document. This can be anything between 5 and 20 questions.
 
 STRICT OUTPUT FORMAT:
 Return ONLY a raw JSON array of objects (no markdown blocks, no intro text). 
-Structure: [{"question": "...", "options": ["A", "B", "C", "D"], "correctAnswer": index_number}]
 
 DIFFICULTY BALANCE:
-Ensure a natural learning curve. For every 5 questions generated:
-- 1 Question should be a "Confidence Builder" (Direct concept check or fundamental definition).
-- 4 Questions must be "Deep Application" (Scenario-based, comparative, or mechanistic) adhering to the rules below.
+Ensure a natural learning curve. For all the generated questions:
+- 20% of the questions should be a "Confidence Builder" (Direct concept check or fundamental definition).
+- 80% of the questions must be "Deep Application" (Scenario-based, comparative, or mechanistic) adhering to the rules below.
 
 CRITICAL RULES FOR "DEEP APPLICATION" QUESTIONS:
 1. Enforce Scenario-Based Application: Generate scenario-based questions where the user must apply a concept to a new, hypothetical situation not explicitly mentioned in the text. Do not ask for definitions; instead, present a problem or case study and ask the user to use the text's concepts to solve it.
